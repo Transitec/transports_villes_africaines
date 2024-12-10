@@ -4,7 +4,7 @@ const mapboxUrl = 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/{z}/{x
 
 const attr = '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://labs.mapbox.com/contribute/" target="_blank">Improve this map</a></strong>contributors';
 
-const map = L.map('mapid').setView([ 30.0618851, -1.9440727 ], 5);
+const map = L.map('mapid').setView([ 1.38, 22.7 ], 4);
 
 
 fetch('villes_africaines.geojson')
@@ -42,6 +42,22 @@ L.geoJSON(data, {
 
 })
 
+// Crée une classe de contrôle personnalisé
+const ImageControl = L.Control.extend({
+  onAdd: function () {
+      // Crée un div pour contenir l'image
+      const div = L.DomUtil.create('div', 'custom-image');
+      div.innerHTML = '<img src="./A9-8-fig-ade-legende.png" alt="Logo">';
+      return div;
+  },
+  onRemove: function () {
+      // Rien à nettoyer ici
+  }
+});
+
+// Ajoute le contrôle à la carte (en bas à gauche)
+const imageControl = new ImageControl({ position: 'bottomright' });
+map.addControl(imageControl);
 
 
 const tile = L.tileLayer(mapboxUrl, {
