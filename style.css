@@ -5,3 +5,10 @@ html, body, #map {
   width: 100%;
 }
 
+.leaflet-popup-content img {
+  max-width: 500px;
+  min-width: 500px;
+  height: auto;
+  display: block;
+  overflow-wrap: break-word; /* Pour éviter les débordements de texte */
+}
