@@ -22,8 +22,8 @@ L.geoJSON(data, {
                 fillColor: color,
                 color: 'white',
                 weight: 1,
-                opacity: 0.4,
-                fillOpacity: 0.4
+                opacity: 0.7,
+                fillOpacity: 0.7
             });
     },
 
@@ -47,12 +47,9 @@ const ImageControl = L.Control.extend({
   onAdd: function () {
       // Crée un div pour contenir l'image
       const div = L.DomUtil.create('div', 'custom-image');
-      div.innerHTML = '<img src="./A9-8-fig-ade-legende.png" alt="Logo">';
+      div.innerHTML = '<img src="./A9-8-fig-ade-legende-fr.png" alt="Logo">';
       return div;
   },
-  onRemove: function () {
-      // Rien à nettoyer ici
-  }
 });
 
 // Ajoute le contrôle à la carte (en bas à gauche)
