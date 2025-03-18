@@ -17,10 +17,15 @@ const legendImages = {
     'en': './d0-3_2301-fig-ade-legende-en.png'
 };
 
+const legendButtonLabel = {
+    'fr': 'Légende',
+    'en': 'Legend'
+};
+
 const legendControl = L.control({ position: 'bottomright' });
 legendControl.onAdd = function () {
     const div = L.DomUtil.create('div', 'custom-image');
-    div.innerHTML = `<img id="legend-img" src="${legendImages[language]}" alt="Légende">`;
+    div.innerHTML = `<img id="legend-img" src="${legendImages[language]}" alt="${legendButtonLabel[language]}">`;
     return div;
 };
 legendControl.addTo(map);
@@ -51,7 +56,7 @@ fetch('villes_africaines.geojson')
             },
             onEachFeature: function (feature, layer) {
                 let imgPath = `img/${language}/${feature.properties.img_path}`;
-                let popupContent = `<h1>${feature.properties.name}</h1><img src="${imgPath}" style="max-width: 100%; height: auto;">`;
+                let popupContent = `<img src="${imgPath}" style="max-width: 100%; height: auto;">`;
                 layer.bindPopup(popupContent, {
                     maxWidth: "auto",
                     minWidth: 300,
@@ -67,6 +72,7 @@ const switchLanguage = () => {
   tileLayer.setUrl(mapboxUrls[language]);
   document.getElementById('legend-img').src = legendImages[language];
 
+  updateLegendButton();
 
   fetch('villes_africaines.geojson')
       .then(response => response.json())
@@ -90,7 +96,7 @@ const switchLanguage = () => {
 
             onEachFeature: function (feature, layer) {
                   let imgPath = `img/${language}/${feature.properties.img_path}`;
-                  var popupContent = '<h1>'+feature.properties.name+'</h1><img src="'+imgPath+'"style="max-width: 100%; height: auto;">'
+                  var popupContent = '<img src="'+imgPath+'"style="max-width: 100%; height: auto;">'
                   
                   layer.bindPopup(popupContent, {
                     maxWidth: "auto", 
@@ -103,11 +109,17 @@ const switchLanguage = () => {
   })
 };
 
+const updateLegendButton = () => {
+    const legendButton = document.querySelector('.leaflet-control-custom');
+    if (legendButton) {
+        legendButton.innerHTML = legendButtonLabel[language];
+    }
+};
 
 const legendButton = L.control({ position: 'topright' });
 legendButton.onAdd = function () {
     const button = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
-    button.innerHTML = 'Légende';
+    button.innerHTML = legendButtonLabel[language];
     button.onclick = toggleLegend;
     return button;
 };
