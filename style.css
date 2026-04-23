@@ -699,3 +699,26 @@ svg.leaflet-image-layer.leaflet-interactive path {
 		print-color-adjust: exact;
 		}
 	}
+
+
+.city-label {
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+	color: #939598;
+	font-size: 12px;
+	font-family: poppins;
+	font-weight: semibold;
+	text-shadow: 
+	0 0 2px white,
+	0 0 4px white;
+	pointer-events: none;
+}
+
+/* Supprime la petite flèche du tooltip */
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+  display: none;
+}
