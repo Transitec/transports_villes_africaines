@@ -722,3 +722,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .leaflet-tooltip-right:before {
   display: none;
 }
+
+
+#legend-img {
+  width: 400px;   /* augmente légèrement (ex : 300 → 340) */
+  height: auto;
+}

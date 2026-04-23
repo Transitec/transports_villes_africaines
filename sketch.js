@@ -51,7 +51,7 @@ function updateLabelsByZoom() {
         const layers = [];
 
         capitalesLayer.eachLayer(layer => {
-        layer.closeTooltip(); // on ferme tout d’abord
+        //layer.closeTooltip(); // on ferme tout d’abord
         layers.push(layer);
         });
 
