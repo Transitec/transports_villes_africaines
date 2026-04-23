@@ -3,13 +3,15 @@ const accessToken = 'sk.eyJ1IjoiYWRlLXRyYW5zaXRlYyIsImEiOiJjbTRiZzFxYWUwNDJ1Mmty
 let language = 'fr'; // Langue par défaut
 let villesLayer;
 let capitalesLayer;
-
+/*
 const mapboxUrls = {
     'fr': 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/{z}/{x}/{y}?language=fr&access_token=' + accessToken,
     'en': 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/{z}/{x}/{y}?language=en&access_token=' + accessToken
 };
 
 const attr = '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://labs.mapbox.com/contribute/" target="_blank">Improve this map</a></strong>contributors';
+*/
+
 
 const map = L.map('mapid').setView([1.38, 22.7], 4);
 
@@ -21,19 +23,19 @@ function cityStyleByPopRank(popRank) {
 
     switch(true) {
         case popRank == 1:
-            return { radius: 13, weight: 2, fillOpacity: 0.9 };
+            return { radius: 18, weight: 2, fillOpacity: 0.9 };
         case popRank == 2:
-            return { radius: 11, weight: 2, fillOpacity: 0.9 };
+            return { radius: 15, weight: 2, fillOpacity: 0.9 };
         case popRank == 3:
-            return { radius: 10, weight: 2, fillOpacity: 0.9 };
+            return { radius: 13, weight: 2, fillOpacity: 0.9 };
         case popRank == 4:
-            return { radius: 8, weight: 1.5, fillOpacity: 0.85 }
+            return { radius: 10, weight: 1.5, fillOpacity: 0.85 }
         case popRank == 5:
-            return { radius: 6.5, weight: 1.5, fillOpacity: 0.85 };
+            return { radius: 8.5, weight: 1.5, fillOpacity: 0.85 };
         case popRank == 6:
-            return { radius: 5.5, weight: 1, fillOpacity: 0.8 };
+            return { radius: 7.5, weight: 1, fillOpacity: 0.8 };
         case popRank == 7:
-            return { radius: 4.5, weight: 1, fillOpacity: 0.8 };   
+            return { radius: 6.5, weight: 1, fillOpacity: 0.8 };   
     }
 }
 
@@ -65,7 +67,13 @@ function updateLabelsByZoom() {
     }
 }
 
-let tileLayer = L.tileLayer(mapboxUrls[language], { attribution: attr }).addTo(map);
+//let tileLayer = L.tileLayer(mapboxUrls[language], { attribution: attr }).addTo(map);
+
+let tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 20
+}).addTo(map);
 
 const legendImages = {
     'fr': './d0-3_2301-fig-ade-legende_fr.png',
@@ -94,8 +102,9 @@ const toggleLegend = () => {
     }
 };
 
+// loadCapitales();
 loadVilles();
-loadCapitales();
+
 
 function loadCapitales() {
     fetch('capitales_africaines_en_fr.geojson')
@@ -136,6 +145,7 @@ function loadCapitales() {
         })
         .catch(error => console.error("Erreur couche capitales :", error));
     }
+    
     
 function loadVilles() {
     fetch('villes_africaines.geojson')
@@ -179,8 +189,8 @@ const switchLanguage = () => {
     language = language === 'fr' ? 'en' : 'fr';
     tileLayer.setUrl(mapboxUrls[language]);
 
+    // loadCapitales();
     loadVilles();
-    loadCapitales();
 
     document.getElementById('legend-img').src = legendImages[language];
     updateLegendButton();
