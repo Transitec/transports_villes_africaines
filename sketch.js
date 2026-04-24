@@ -3,15 +3,6 @@ const accessToken = 'sk.eyJ1IjoiYWRlLXRyYW5zaXRlYyIsImEiOiJjbTRiZzFxYWUwNDJ1Mmty
 let language = 'fr'; // Langue par défaut
 let villesLayer;
 let capitalesLayer;
-/*
-const mapboxUrls = {
-    'fr': 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/{z}/{x}/{y}?language=fr&access_token=' + accessToken,
-    'en': 'https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/{z}/{x}/{y}?language=en&access_token=' + accessToken
-};
-
-const attr = '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://labs.mapbox.com/contribute/" target="_blank">Improve this map</a></strong>contributors';
-*/
-
 
 const map = L.map('mapid').setView([1.38, 22.7], 4);
 
@@ -187,7 +178,7 @@ const switchLanguage = () => {
     if (capitalesLayer) map.removeLayer(capitalesLayer);
 
     language = language === 'fr' ? 'en' : 'fr';
-    tileLayer.setUrl(mapboxUrls[language]);
+    //tileLayer.setUrl(mapboxUrls[language]);
 
     // loadCapitales();
     loadVilles();
